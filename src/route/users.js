@@ -76,31 +76,39 @@ router.post("/", async(req, res)=> {
 
 
 
-router.put("/:id", (req,res)=> {
-    let check_user = _.find(users, ["id", parseInt(req.params.id)]);
-    let msg = req.params.id + "아이디를 가진 유저가 존재하지 않습니다.";
-    if(check_user){
-        users = users.map(entry => {
-            if(entry.id === parseInt(req.params.id)){
-                
-                entry.name = req.body.name;
+router.put("/:id", async(req, res) => {
+    let result = false;
+    try {
+        await User.update(
+            {
+                name: req.body.name,
+                address: req.body.address
+            }, {
+                where: {
+                    id: req.params.id
+                }
             }
-            return entry;
-       
+        );
+        result = true;
+    } catch (err) {
+        console.error(err);
+    }
+
+    res.send(result);
+});
+
+router.delete("/:id", async(req, res) => {
+    let result = false;
+    try {
+        await User.destroy({
+            where: {
+                id: req.params.id
+            }
         });
-        msg = "성공적으로 수정 됨";     
+        result = true;
+    } catch (err) {
+        console.error(err);
     }
-    res.send({msg});
+    res.send(result);
 });
-
-router.delete("/:id", (req,res)=> {
-    let check_user = _.find(users, ["id", parseInt(req.params.id)]);
-    let msg = req.params.id + "아이디를 가진 유저가 존재하지 않습니다.";
-    if(check_user){
-        msg = "성공적으로 삭제 됨";     
-        users = _.reject(users, ["id", parseInt(req.params.id)]);       
-    }
-    res.send({msg});
-});
-
 module.exports = router;
