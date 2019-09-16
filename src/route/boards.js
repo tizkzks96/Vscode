@@ -49,10 +49,10 @@ router.get("/", async(req,res)=> {
     });
     res.send(result);
 });
-router.get("/viewCount/:viewCount", async(req,res)=> {
+router.get("/title/:id", async(req,res)=> {
     let result = await Board.findAll({
         where:{
-            viewCount: req.params.viewCount
+            id: req.params.id
         }
     });
     res.send(result);
@@ -73,7 +73,7 @@ router.post("/", async(req, res)=> {
 
 
 
-router.put("/:title", async(req, res) => {
+router.put("/:id", async(req, res) => {
     let result = false;
     try {
         await Board.update(
@@ -82,7 +82,7 @@ router.put("/:title", async(req, res) => {
                 contents: req.body.contents
             }, {
                 where: {
-                    title: req.params.title
+                    id: req.params.id
                 }
             }
         );
@@ -94,12 +94,12 @@ router.put("/:title", async(req, res) => {
     res.send(result);
 });
 
-router.delete("/:title", async(req, res) => {
+router.delete("/:id", async(req, res) => {
     let result = false;
     try {
         await Board.destroy({
             where: {
-                title: req.params.title
+                id: req.params.id
             }
         });
         result = true;
