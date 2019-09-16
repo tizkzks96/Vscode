@@ -1,29 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const _ = require("lodash");
-const Sequelize = require("sequelize");
-const sequelize = new Sequelize("node_example", "root", "0000",{ hotst: "localhost", dialect: "mysql"});
-const check_sequlize_auth = async() =>{
-    try{
-        await sequelize.authenticate();
-        console.log("연결  성공");
+const models = require("../models");
 
-    }catch(err){
-        console.log("연결 실패", err);
-    }
-};
-check_sequlize_auth();
-
-const User = sequelize.define("user",{
-    name: {
-        type: Sequelize.STRING,
-        allowNull: false
-    },
-    address:{
-        type : Sequelize.STRING,
-        allowNull: false
-    }
-});
+const User = models.user;
 
 User.sync({force:true}) .then(() => {
     return User.create({

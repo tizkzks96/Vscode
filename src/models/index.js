@@ -1,19 +1,16 @@
 const fs = require("fs");
 const path = require("path");
+const Sequelize = require("sequelize");
 const basename = path.basename(__filename);
-const sequelize = new Sequelize("node_example", "root", "0000",{ hotst: "localhost", dialect: "mysql"});
-const user_router = require("./route/users");
-const models = require("./models");
 
-models.sequelize.sync().then(() => {
-    applicationCache.addEventListener(3000);
-});
+const db = {};
+
+const sequelize = new Sequelize("node_example", "root", "0000",{ hotst: "localhost", dialect: "mysql"});
 
 sequelize.authenticate().then(() => {
     console. log("연결 성공");
 }).catch(err => {
     console. log("연결 실패 : ", err);
-    
 });
 
 // 파일을 읽어서 리턴
@@ -30,7 +27,7 @@ fs.readdirSync(__dirname).filter(file =>{
     console.log(db);
 });
 
-db.sequelize = sequelize;
+db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 module.exports = db;

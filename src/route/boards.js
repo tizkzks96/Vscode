@@ -1,33 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const _ = require("lodash");
-const Sequelize = require("sequelize");
-const sequelize = new Sequelize("node_example", "root", "0000",{ hotst: "localhost", dialect: "mysql"});
-const check_sequlize_auth = async() =>{
-    try{
-        await sequelize.authenticate();
-        console.log("연결  성공");
+const models = require("../models");
 
-    }catch(err){
-        console.log("연결 실패", err);
-    }
-};
-check_sequlize_auth();
 
-const Board = sequelize.define("board",{
-    title: {
-        type: Sequelize.STRING,
-        allowNull: false
-    },
-    contents:{
-        type : Sequelize.STRING,
-        allowNull: false
-    },
-    viewCount:{
-        type : Sequelize.INTEGER,
-        allowNull: false
-    }
-});
+const Board = models.board;
+
 
 Board.sync({force:true}) .then(() => {
     return Board.create({
