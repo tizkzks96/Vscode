@@ -23,7 +23,7 @@ Board.sync({force:true}) .then(() => {
 
 router.get("/", async(req,res)=> {
     let result = await Board.findAll({
-        attributes: ["title"]
+        //sattributes: ["title"]
     });
     res.send(result);
 });
