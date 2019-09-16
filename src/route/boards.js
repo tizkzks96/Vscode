@@ -7,19 +7,19 @@ const models = require("../models");
 const Board = models.board;
 
 
-Board.sync({force:true}) .then(() => {
-    return Board.create({
-        title: "홍길동",
-        contents : "tmpe",
-        viewCount: 2
-    });
-}).then( () => {
-    return Board.create({
-        title: "홍길동",
-        contents : "tmpe",
-        viewCount: 1
-    });
-});
+// Board.sync({force:true}) .then(() => {
+//     return Board.create({
+//         title: "홍길동",
+//         contents : "tmpe",
+//         viewCount: 2
+//     });
+// }).then( () => {
+//     return Board.create({
+//         title: "홍길동",
+//         contents : "tmpe",
+//         viewCount: 1
+//     });
+// });
 
 router.get("/", async(req,res)=> {
     let result = await Board.findAll({

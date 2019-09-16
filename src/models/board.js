@@ -14,6 +14,11 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false
         }
     });
+
+    Board.associate = function(models){
+        models.board.belongsTo(models.user);
+    };
+
     
     return Board;
 };

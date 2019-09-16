@@ -12,10 +12,15 @@ app.use(express.urlencoded({extended:true}));
 app.use("/users", user_router);
 app.use("/boards", board_router);
 
-models.sequelize.sync().then(()=>{
-    app.listen(3000);
-});
+
 
 app.get("/", (req, res) => {
     res.send("hi");
 });
+
+models.sequelize.query("SET FOREIGN_KEY_CHECKS = 0", {raw: true})
+.then(() => {
+    models.sequelize.sync({force:true}).then(() => {
+        app.listen(3000);
+    })
+})
