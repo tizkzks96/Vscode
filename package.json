@@ -14,7 +14,7 @@
   "dependencies": {
     "express": "^4.17.1",
     "kill-port": "^1.5.1",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "mysql2": "^1.7.0",
     "nodemon": "^1.19.1",
     "sequelize": "^5.18.4"
